@@ -23,5 +23,8 @@ x
 
 ```{r}
 x1 = c(1:10, NaN, 10:-20, NaN, 27)
-x1i = sum(x)/length(x) 
+x1i = sum(x1, na.rm = TRUE)/length(x1)   
+x1i 
 ```
+
+Cuando se coloca ``na.rm =TRUE`` remueve datos ausentes, FALSE no remueve
