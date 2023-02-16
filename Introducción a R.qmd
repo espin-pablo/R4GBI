@@ -29,3 +29,10 @@ x1i
 
 Cuando se coloca `na.rm =TRUE` remueve datos ausentes, FALSE no remueve
 
+### Manipulación de Datos
+
+Para la manipulacion de datos se usara la librería `tidyverse`
+
+```{r tidy, echo=TRUE}
+library(tidyverse)
+```
