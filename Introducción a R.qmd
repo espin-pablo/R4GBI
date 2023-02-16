@@ -36,4 +36,10 @@ Para la manipulacion de datos se usara la librería `tidyverse`
 ```{r tidy, echo=TRUE}
 library(tidyverse); library(ggplot2)
 data("diamonds")
+plot(pressure)
+
+df = diamonds %>% ggplot(aes(x=depth, y=price))
+
 ```
+
+%\>% es un concatenador de funciones.
