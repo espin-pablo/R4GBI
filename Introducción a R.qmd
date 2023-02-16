@@ -28,3 +28,4 @@ x1i
 ```
 
 Cuando se coloca `na.rm =TRUE` remueve datos ausentes, FALSE no remueve
+
