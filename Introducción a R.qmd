@@ -34,5 +34,6 @@ Cuando se coloca `na.rm =TRUE` remueve datos ausentes, FALSE no remueve
 Para la manipulacion de datos se usara la librería `tidyverse`
 
 ```{r tidy, echo=TRUE}
-library(tidyverse)
+library(tidyverse); library(ggplot2)
+data("diamonds")
 ```
