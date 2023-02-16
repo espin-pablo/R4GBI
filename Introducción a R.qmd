@@ -5,23 +5,23 @@ format: html
 editor: visual
 ---
 
-## Quarto
+## Operaciones basicas
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Las operaciones de matemáticas, lógica y de asignación
 
-## Running Code
+```{r cars}
+summary(cars)
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
 ```
 
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
+```{r vector}
+x = c(1:100)
+x
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+### Vectores con datos ausentes
+
+```{r}
+x1 = c(1:10, NaN, 10:-20, NaN, 27)
+x1i = sum(x)/length(x) 
+```

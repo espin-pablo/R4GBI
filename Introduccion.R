@@ -12,13 +12,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Operaciones basicas 
 Las operaciones de matemáticas, lógica y de asignación
 
-$$
-\hat{x}
-$$
 
-```{python cars}
+```{r cars}
 summary(cars)
 ```
+
+```{r vector}
+x = c(1:100)
+x
+```
+
 
 ## Including Plots
 
