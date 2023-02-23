@@ -1,0 +1,31 @@
+---
+title: "Clase R 22/2"
+author: "Pabloo"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+library(ggplot2)
+data(mtcars)
+head(mtcars)
+```
+
+```{r}
+m=cor(mtcars)
+m
+```
+
+```{r}
+heatmap(m)
+head(mtcars)
+```
+
+```{r}
+library(devtools)
+install_github("jokergoo/ComplexHeatmap")
+```

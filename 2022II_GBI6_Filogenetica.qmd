@@ -26,6 +26,7 @@ if (InstallPackages) {
   install.packages("phytools")
   install.packages("stats")
   install.packages("treeio")
+ 
 }
 library(pacman)
 pacman::p_load(adegenet, ape, ggtree, ggplot2, stats, ips, msa)
