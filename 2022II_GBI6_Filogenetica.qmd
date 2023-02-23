@@ -36,7 +36,7 @@ pacman::p_load(adegenet, ape, ggtree, ggplot2, stats, ips, msa)
 ## Datos
 
 ```{r}
-fname = "coati_mito.fas"
+fname = "coati_mito.fasta"
 AlignNeeded = TRUE # The program reads fasta file and aligns it
 
 if (AlignNeeded) {
@@ -60,11 +60,60 @@ if (AlignNeeded) {
 
 ```
 
-You can add options to executable code like this
-
 ```{r}
-#| echo: false
-2 * 2
+nbin<-as.DNAbin(cb)
+TRIM = FALSE       # Already trimmed sequence is assumed
+if (TRIM) {
+	nbin<-trimEnds(nbin)#trimming of sequences ends
+}
+an<-as.alignment(nbin)  #converting DNAbin to alignment format
+nm<-as.matrix(an)       #converting alignment to matrix
+nbinmat<-as.matrix(labels(nbin)) #extraction of the sample names
+nbin
+class(nbin)
+dnbin<-dist.dna(nbin, model = "K80") #computing distance by ape package with K80 model derived by Kimura (1980)
+tree<-nj(dnbin)
+ggt<-ggtree(tree, cex = 0.8, aes(color=branch.length))+
+  scale_color_continuous(high='lightskyblue1',low='coral4')+
+  geom_tiplab(align=TRUE, size=2)+
+  geom_treescale(y = - 5, color = "coral4", fontsize = 4)
+ggt
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+```{r}
+# Library
+library(dplyr); library(ggsankey); library(ggplot2); library(ggpubr)
+library(readxl); library(plotly)
+
+## SANKEY:  DATOS PERMISOS DE CONSTRUCCIÓN 2021
+data = data("diamonds")
+dc1 = data %>% select(cut, color, clarity)
+colnames(dc1) = c("Region", "Zona", "Mes", "Propiedad", "Cimientos", "Piso",
+                  "Estructura", "Pared", "Cubierta", "Obra", "Residencia")
+
+dc2 <- dc1 %>% make_long(Mes, Zona, Region, Propiedad, Obra, Residencia, 
+                          Cimientos, Piso, Estructura, Pared, Cubierta)
+
+# Conteo para todos los niveles de las cinco variables
+dagg <- dc2%>% dplyr::group_by(node)%>% tally()
+# Unir datos de df con dagg
+dc3 <- merge(dc2, dagg, by.x = 'node', by.y = 'node', all.x = TRUE)
+# Chart 2
+pl <- ggplot(dc3, aes(x = x, next_x = next_x, node = node, 
+                      next_node = next_node, fill = factor(node), 
+                      label = paste0(node," n=", n))) + 
+  geom_sankey(flow.alpha = 0.8,  show.legend = TRUE) + 
+  geom_sankey_label(size = 3, color = "white", fill= "gray30", hjust = -0.2) +
+  scale_fill_viridis_d(option = "D") +
+  labs(title = "Permisos de construcción - 2021",
+       caption = "@GualapuroMoises") +
+  theme_bw() + theme(legend.position = "none")+
+  theme(axis.title = element_blank(), axis.text.y = element_blank(), 
+        axis.ticks = element_blank(), panel.grid = element_blank(), 
+        plot.title = element_text(hjust = 0.5))
+pl
+ggsave(pl, file="sanchez.png", units="in", 
+       width=16, height=8, dpi = 600)
+
+ggplotly(pl)
+```
