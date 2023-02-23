@@ -38,8 +38,19 @@ library(tidyverse); library(ggplot2)
 data("diamonds")
 plot(pressure)
 
-df = diamonds %>% ggplot(aes(x=depth, y=price))
+df = diamonds %>% ggplot(aes(x=depth, y=price, color=cut)) + 
+  geom_point(size=0.2) + facet_wrap(cut ~.)
 
+df
+
+
+df2 = diamonds %>% ggplot(aes(x=cut, y=price, color=clarity)) + 
+  geom_boxplot() + geom_jitter(size=0.1, alpha=0.2) + 
+  facet_wrap(clarity)
+
+df2
+
+ 
 ```
 
 %\>% es un concatenador de funciones.
